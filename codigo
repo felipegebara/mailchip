@@ -1,0 +1,36 @@
+from mailchimp3 import MailChimp
+
+import pandas as pd
+client = MailChimp(mc_api='XXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXX', mc_user='XXX@XXXXXX')
+
+
+
+#list_campaigns = client.campaigns.all(get_all=True, fields="campaigns.id")
+
+#print(list_campaigns)
+
+def campanha(camapaing_id='XXXXXXXX'):
+
+    cline=client.reports.sent_to.all(campaign_id=camapaing_id, get_all=False, fields="sent_to.campaign_id,sent_to.email_address,sent_to.status,sent_to.open_count")
+    for line in cline['sent_to']:
+         campaign_list_id = line['campaign_id']
+         email=line['email_address']
+         status=line['status']
+         open=line['open_count']
+         base= {'campanha': [campaign_list_id],'email': [email],'status':[status],'open':[open]}
+         df2 = pd.DataFrame(base)
+    print(df2)
+    for line in cline['sent_to']:
+             campaign_list_id = line['campaign_id']
+             email = line['email_address']
+             status = line['status']
+             open = line['open_count']
+             base = {'campanha': [campaign_list_id], 'email': [email], 'status': [status], 'open': [open]}
+             df = pd.DataFrame(base)
+             df2 = pd.concat([df2, df])
+    print(df2)
+    df2.to_csv('C:/', encoding='utf-8', header=True, doublequote=True, sep=',',index=False)
+
+
+
+campanha(camapaing_id='XXXXXXXX')
