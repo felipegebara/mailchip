@@ -1,2 +1,2 @@
-# mailchmp
-codigo para baixar uma  lista do mailchip
+# mailchimp
+codigo para baixar uma  lista do mailchimp
